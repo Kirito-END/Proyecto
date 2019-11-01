@@ -110,6 +110,7 @@ class PacienteController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Paciente::destroy($id);
+        return redirect('/home');
     }
 }
