@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Paciente;
+use App\Odontologo;
 
-class PacienteController extends Controller
+class OdontologoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class PacienteController extends Controller
      */
     public function index()
     {
-        $rta = Paciente::all();
+        $rta = Odontologo::all();
         return view('administrador.welcome',compact('rta'));
     }
 
@@ -26,7 +26,7 @@ class PacienteController extends Controller
      */
     public function create()
     {
-        $rta = Paciente::all()->last();
+        $rta = Odontologo::all()->last();
         return view('administrador.register',compact('rta'));
     }
 
@@ -38,23 +38,25 @@ class PacienteController extends Controller
      */
     public function store(Request $request)
     {
-        $paciente = new Paciente();
-        $paciente-> PAC_ID = $request -> input('PAC_ID');
-        $paciente-> PAC_TIPO_ID = $request -> input('PAC_TIPO_ID');
-        $paciente-> PAC_NOMBRES = $request -> input('PAC_NOMBRES');
-        $paciente-> PAC_APELLIDOS = $request -> input('PAC_APELLIDOS');
-        $paciente-> PAC_DIRECCION = $request -> input('PAC_DIRECCION');
-        $paciente-> PAC_TELEFONO = $request -> input('PAC_TELEFONO');
-        $paciente-> PAC_FECNACIMIENTO = $request -> input('PAC_FECNACIMIENTO');
-        $paciente-> PAC_REGISTRO = $request -> input('PAC_REGISTRO');
-        $paciente-> PAC_GENERO = $request -> input('PAC_GENERO');
+        $odontologo = new Odontologo();
+        $odontologo-> ODO_ID = $request -> input('ODO_ID');
+        $odontologo-> ODO_TIPO_ID = $request -> input('ODO_TIPO_ID');
+        $odontologo-> ODO_PRIMER_NOMBRE = $request -> input('ODO_NOMBRES');
+        $odontologo-> ODO_SEGUNDO_NOMBRE = $request -> input('ODO_NOMBRES');
+        $odontologo-> ODO_PRIMER_APELLIDO = $request -> input('ODO_NOMBRES');
+        $odontologo-> ODO_SEGUNDO_APELLIDO = $request -> input('ODO_APELLIDOS');
+        $odontologo-> ODO_DIRECCION = $request -> input('ODO_DIRECCION');
+        $odontologo-> ODO_TELEFONO = $request -> input('ODO_TELEFONO');
+        $odontologo-> ODO_FECNACIMIENTO = $request -> input('ODO_FECNACIMIENTO');
+        $odontologo-> ODO_REGISTRO = $request -> input('ODO_REGISTRO');
+        $odontologo-> ODO_GENERO = $request -> input('ODO_GENERO');
 
-        if($request->hasfile('PAC_FOTO')){
+        if($request->hasfile('ODO_FOTO')){
 
-            $paciente['PAC_FOTO'] = $request->file('FOTO')->store('uploads','public');
+            $odontologo['ODO_FOTO'] = $request->file('FOTO')->store('uploads','public');
 
         }
-        $paciente->save();
+        $odontologo->save();
 
         return redirect('/home');
     }
@@ -67,7 +69,7 @@ class PacienteController extends Controller
      */
     public function show($id)
     {
-        $rta = Paciente::find($id);
+        $rta = Odontologo::find($id);
         return view('administrador.listar',compact('rta'));
 
 
@@ -81,7 +83,7 @@ class PacienteController extends Controller
      */
     public function edit($id)
     {
-        $rta = Paciente::find($id);
+        $rta = Odontologo::find($id);
         return view('administrador.register',compact('rta')); 
     }
 
@@ -95,7 +97,7 @@ class PacienteController extends Controller
     public function update(Request $request, $id)
     {
         $rta = request()->except(['_token','_method','button']);
-        Paciente::where('PAC_ID','=',$id)->update($rta);
+        Odontologo::where('ODO_ID','=',$id)->update($rta);
 
         return redirect('/home');
     }
@@ -108,7 +110,7 @@ class PacienteController extends Controller
      */
     public function destroy($id)
     {
-        Paciente::destroy($id);
+        Odontologo::destroy($id);
         return redirect('/home');
     }
 }
